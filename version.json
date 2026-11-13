@@ -1,0 +1,17 @@
+{
+  "version": "1.0.0",
+  "released": "2026-11-13",
+  "download_url": "https://github.com/consoleisrealistic/dynamic-island-for-windows/releases/download/v1.0.0/IslandSetup.exe",
+  "sha256": "09d08621f589796e54612627b4c1150caec6c7f3c831c5b4d001c7807c54b879",
+  "size": 41365041,
+  "release_page": "https://github.com/consoleisrealistic/dynamic-island-for-windows/releases/tag/v1.0.0",
+  "min_windows": "10.0.17763",
+  "release_notes": [
+    "First public release of Island",
+    "Now playing with album art, visualiser and synced lyrics (Hinglish option for Punjabi, Hindi and Haryanvi songs)",
+    "Notifications, clipboard history, focus timers, notes, reminders, weather and meetings",
+    "Performance tab, sound and brightness controls and an app launcher",
+    "Gaming mode with a live HUD and a built-in FPS counter for DirectX games",
+    "Customisable glow, built-in update checker"
+  ]
+}
