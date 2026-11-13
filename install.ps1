@@ -19,8 +19,9 @@ function Install-Island {
     $MaxBytes = 300MB
 
     function Say([string]$Text, [string]$Color = 'Gray') { Write-Host "  $Text" -ForegroundColor $Color }
-    function Stop-Install([string]$Text) { Write-Host ''; Write-Host "  Island was not installed: $Text" -ForegroundColor Red; Write-Host ''; throw "Island install stopped: $Text" }
+    function Stop-Install([string]$Text) { throw [System.OperationCanceledException]::new($Text) }
 
+    try {
     Write-Host ''
     Write-Host '  Island installer' -ForegroundColor Cyan
     Write-Host '  A Dynamic Island for Windows' -ForegroundColor DarkGray
@@ -38,7 +39,10 @@ function Install-Island {
     try {
         $info = Invoke-RestMethod -Uri $Feed -UseBasicParsing -TimeoutSec 30 -Headers @{ 'Cache-Control' = 'no-cache' }
     } catch {
-        Stop-Install "could not read the release information ($($_.Exception.Message)). Check your internet connection, or download IslandSetup.exe from https://github.com/$Repo/releases."
+        $code = 0
+        try { $code = [int]$_.Exception.Response.StatusCode } catch { }
+        if ($code -eq 404) { Stop-Install "no release has been published yet. Watch https://github.com/$Repo/releases for the first one." }
+        Stop-Install "could not reach GitHub ($($_.Exception.Message)). Check your internet connection and try again."
     }
 
     $version = [string]$info.version
@@ -98,6 +102,15 @@ function Install-Island {
         }
     } finally {
         Remove-Item -LiteralPath $dir -Recurse -Force -ErrorAction SilentlyContinue
+    }
+    } catch [System.OperationCanceledException] {
+        Write-Host ''
+        Write-Host "  Island was not installed: $($_.Exception.Message)" -ForegroundColor Red
+        Write-Host ''
+    } catch {
+        Write-Host ''
+        Write-Host "  Island was not installed: unexpected error: $($_.Exception.Message)" -ForegroundColor Red
+        Write-Host ''
     }
 }
 
