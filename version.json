@@ -1,17 +1,21 @@
 {
-  "version": "1.0.0",
-  "released": "2026-11-13",
-  "download_url": "https://github.com/consoleisrealistic/dynamic-island-for-windows/releases/download/v1.0.0/IslandSetup.exe",
-  "sha256": "09d08621f589796e54612627b4c1150caec6c7f3c831c5b4d001c7807c54b879",
-  "size": 41365041,
-  "release_page": "https://github.com/consoleisrealistic/dynamic-island-for-windows/releases/tag/v1.0.0",
+  "version": "1.1.0",
+  "released": "2026-11-15",
+  "download_url": "https://github.com/consoleisrealistic/dynamic-island-for-windows/releases/download/v1.1.0/IslandSetup.exe",
+  "sha256": "5b71c6b8cdcbe8e9b78294e91390733bbf4fde67d2ab2bd84a7ff278c9074db6",
+  "size": 46319473,
+  "release_page": "https://github.com/consoleisrealistic/dynamic-island-for-windows/releases/tag/v1.1.0",
   "min_windows": "10.0.17763",
   "release_notes": [
-    "First public release of Island",
-    "Now playing with album art, visualiser and synced lyrics (Hinglish option for Punjabi, Hindi and Haryanvi songs)",
-    "Notifications, clipboard history, focus timers, notes, reminders, weather and meetings",
-    "Performance tab, sound and brightness controls and an app launcher",
-    "Gaming mode with a live HUD and a built-in FPS counter for DirectX games",
-    "Customisable glow, built-in update checker"
+    "Ask: answers from Gemini right in the island, with web results, live model list and automatic fallback when a model hits its limit",
+    "Translate between 160 languages, plus quick maths and currency conversion as you type",
+    "Copy text from anything on screen (Ctrl + Alt + T) with offline Windows OCR",
+    "AI Agents: watch Claude Code, Codex, Cursor and other coding agents, and approve their permission requests from the island",
+    "New widgets: to-do list, water reminder, internet speed test and screenshots with a built-in editor",
+    "Ambient mode (Ctrl + Alt + F): full-screen lyrics in four styles",
+    "Browser tabs no longer hidden: choose slim line, corner, reserved space or see-through in Settings › General",
+    "Brand-new Settings window with search and grouped sections",
+    "Scrollable tab bar with arrows; the island stays closed while a panel is open",
+    "Sharper album art and many smaller fixes"
   ]
 }
