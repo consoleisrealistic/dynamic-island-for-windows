@@ -5,7 +5,7 @@
 # Island
 
 **A Dynamic Island for Windows.**
-Music, notifications, timers, clipboard and live stats, right at the top of your screen.
+Music, AI answers, notifications, timers, clipboard and live stats, right at the top of your screen.
 
 [![Latest release](https://img.shields.io/github/v/release/consoleisrealistic/dynamic-island-for-windows?label=release&color=6c63ff)](https://github.com/consoleisrealistic/dynamic-island-for-windows/releases/latest)
 [![Windows 10 | 11](https://img.shields.io/badge/Windows-10%20%7C%2011-0078d4?logo=windows&logoColor=white)](#system-requirements)
@@ -39,6 +39,14 @@ Music, notifications, timers, clipboard and live stats, right at the top of your
 | | |
 | --- | --- |
 | **Now playing** | Album art, a live visualiser, playback controls and time-synced lyrics for Spotify and any app that uses Windows media controls. Optional Hinglish lyrics for Punjabi, Hindi and Haryanvi songs. |
+| **Ask** | Ask Gemini anything from the island, with optional web results. Bring your own free key from Google AI Studio; Island picks a working model and falls back to another one when a limit is reached. |
+| **Translate** | Translate between 160 languages, with auto-detect. |
+| **Copy text from the screen** | Press **Ctrl + Alt + T**, drag over anything and the text is copied. Uses offline Windows OCR, or Gemini if you turn on smart OCR. |
+| **Quick maths and currency** | Type sums, percentages or "500 usd to inr" and get the answer instantly. Understands k, lakh and crore. |
+| **AI Agents** | Watch Claude Code, Codex, Cursor, Gemini CLI and other coding agents work, see what they change and approve their permission requests right from the island. |
+| **To-do, water and speed test** | A to-do list, a water reminder, an internet speed test and screenshots with a built-in editor. |
+| **Ambient mode** | **Ctrl + Alt + F** turns the screen into full-screen lyrics in four styles. |
+| **Stays off your tabs** | Choose what happens when the island covers browser tabs: shrink to a slim line, move to a corner, keep a strip free at the top, or turn see-through when you reach for a tab. |
 | **Hover to open** | The pill expands into a control centre when you glide over it and tucks away when you leave. |
 | **Smart pop-ups** | Volume, brightness, track changes, USB devices, battery and network events slide in and out. |
 | **Notifications** | Messages from your apps are mirrored into the island, with a feed of recent ones. |
@@ -180,6 +188,10 @@ Island runs on your PC and sends **no analytics or telemetry**. It only goes onl
 | Lyrics | lrclib.net | Song title, artist and length |
 | Weather | open-meteo.com | The city you choose, or coordinates from IP-based location (ipapi.co or ipwho.is) when you pick *Detect automatically* |
 | Meeting Quick Join (optional) | Google Calendar | Read-only access you grant; tokens are encrypted with Windows DPAPI on your PC |
+| Ask, Translate, OCR fallback (optional) | Google Gemini API, with your own key | The text, question or screenshot area you send; the key is encrypted with Windows DPAPI |
+| Currency conversion | open.er-api.com | A request for exchange rates |
+| Speed test | Cloudflare, Hetzner, OVH or Linode test servers | Test data only, when you start a test |
+| Agent icons | Google or DuckDuckGo favicon services | The website of each coding agent you connect |
 | Update checks | github.com | A request for `version.json` |
 
 Full details: [PRIVACY.md](PRIVACY.md).
