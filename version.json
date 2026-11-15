@@ -1,21 +1,13 @@
 {
-  "version": "1.1.0",
+  "version": "1.1.1",
   "released": "2026-11-15",
-  "download_url": "https://github.com/consoleisrealistic/dynamic-island-for-windows/releases/download/v1.1.0/IslandSetup.exe",
-  "sha256": "5b71c6b8cdcbe8e9b78294e91390733bbf4fde67d2ab2bd84a7ff278c9074db6",
-  "size": 46319473,
-  "release_page": "https://github.com/consoleisrealistic/dynamic-island-for-windows/releases/tag/v1.1.0",
+  "download_url": "https://github.com/consoleisrealistic/dynamic-island-for-windows/releases/download/v1.1.1/IslandSetup.exe",
+  "sha256": "ad8d6388afab50ea7a473d07f86a09e2efddeb402b71f4f4ad1ad907f2368ea2",
+  "size": 46321170,
+  "release_page": "https://github.com/consoleisrealistic/dynamic-island-for-windows/releases/tag/v1.1.1",
   "min_windows": "10.0.17763",
   "release_notes": [
-    "Ask: answers from Gemini right in the island, with web results, live model list and automatic fallback when a model hits its limit",
-    "Translate between 160 languages, plus quick maths and currency conversion as you type",
-    "Copy text from anything on screen (Ctrl + Alt + T) with offline Windows OCR",
-    "AI Agents: watch Claude Code, Codex, Cursor and other coding agents, and approve their permission requests from the island",
-    "New widgets: to-do list, water reminder, internet speed test and screenshots with a built-in editor",
-    "Ambient mode (Ctrl + Alt + F): full-screen lyrics in four styles",
-    "Browser tabs no longer hidden: choose slim line, corner, reserved space or see-through in Settings › General",
-    "Brand-new Settings window with search and grouped sections",
-    "Scrollable tab bar with arrows; the island stays closed while a panel is open",
-    "Sharper album art and many smaller fixes"
+    "Updating from inside Island now finishes the install and reopens Island on the new version",
+    "Includes everything from 1.1.0: Ask, Translate, copy text from the screen, AI Agents, to-do, water reminder, speed test, Ambient mode and the browser-tab options"
   ]
 }
