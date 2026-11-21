@@ -1,13 +1,19 @@
 {
-  "version": "1.1.1",
-  "released": "2026-11-15",
-  "download_url": "https://github.com/consoleisrealistic/dynamic-island-for-windows/releases/download/v1.1.1/IslandSetup.exe",
-  "sha256": "ad8d6388afab50ea7a473d07f86a09e2efddeb402b71f4f4ad1ad907f2368ea2",
-  "size": 46321170,
-  "release_page": "https://github.com/consoleisrealistic/dynamic-island-for-windows/releases/tag/v1.1.1",
+  "version": "1.2.0",
+  "released": "2026-11-21",
+  "download_url": "https://github.com/consoleisrealistic/dynamic-island-for-windows/releases/download/v1.2.0/IslandSetup.exe",
+  "sha256": "74dae9eabd62c6171f2501f4d36efaea01ea171f209e3227244baf4979078b0b",
+  "size": 46436265,
+  "release_page": "https://github.com/consoleisrealistic/dynamic-island-for-windows/releases/tag/v1.2.0",
   "min_windows": "10.0.17763",
   "release_notes": [
-    "Updating from inside Island now finishes the install and reopens Island on the new version",
-    "Includes everything from 1.1.0: Ask, Translate, copy text from the screen, AI Agents, to-do, water reminder, speed test, Ambient mode and the browser-tab options"
+    "Island is now called DeskHalo. Updating keeps all your settings, notes and history",
+    "Cursors: 14 original pointer packs, from Fluent to Arcane, Ronin, Inferno, Frost, Neon and 8-Bit Hero, with matching hand, text, resize and busy pointers at any size. One click puts your old pointers back",
+    "Screen Time: see every minute of your day by app and by hour, with idle time left out and everything kept on your PC",
+    "Ambient mode: 12 visualizer styles including Constellation, Punch, Messages, Studio, Depth, Lens, Code, Branches, Web and Lock screen, sharper 3D album art and a smoother look on low-resolution covers",
+    "Edge light: new speeds (slow to superfast and DJ) and shapes (notch and curved edges), with your own colours",
+    "Lyrics stay in sync after you pause, and no longer jump when you change style",
+    "Ask and Translate no longer get stuck retrying: Flash-Lite is the default, and DeskHalo switches models straight away when a free limit is hit",
+    "New icons in Settings, smoother scrolling in Screen Time, and lower CPU and memory use while idle"
   ]
 }
