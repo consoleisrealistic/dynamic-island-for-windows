@@ -1,214 +1,480 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Island – A Dynamic Island for Windows</title>
-<meta name="description" content="Island puts a Dynamic Island at the top of your Windows screen: now playing with synced lyrics, notifications, timers, clipboard history, live stats and a gaming HUD. Free for Windows 10 and 11.">
-<meta property="og:title" content="Island – A Dynamic Island for Windows">
-<meta property="og:description" content="Music, notifications, timers, clipboard and live stats, right at the top of your screen.">
-<meta property="og:image" content="assets/demo-poster.jpg">
-<meta name="theme-color" content="#0a0a10">
-<link rel="icon" href="assets/favicon.ico" sizes="any">
-<link rel="icon" type="image/png" href="assets/favicon-32.png" sizes="32x32">
+<title>DeskHalo — the Dynamic Island for Windows</title>
+<meta name="description" content="DeskHalo puts music, lyrics, timers, AI, agents, screen time, cursors and system stats in a living pill at the top of your Windows screen. Free.">
+<meta property="og:title" content="DeskHalo — the Dynamic Island for Windows">
+<meta property="og:description" content="Music, lyrics, AI, agents, screen time, cursors and more, in a living pill at the top of your screen.">
+<meta property="og:image" content="https://consoleisrealistic.github.io/dynamic-island-for-windows/assets/home.jpg">
+<meta name="theme-color" content="#05060a">
+<link rel="icon" href="assets/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#07070c;--bg2:#0e0e16;--card:#12121b;--line:#22222f;--fg:#f4f4fa;--dim:#a2a2b8;--faint:#6d6d84;--a1:#6c63ff;--a2:#ec48be;--a3:#22d3ee;--ok:#30d158;--r:18px}
-@media (prefers-color-scheme: light){:root:not([data-theme="dark"]){--bg:#f6f6fa;--bg2:#ececf3;--card:#ffffff;--line:#dcdce6;--fg:#101018;--dim:#4f4f63;--faint:#7c7c90}}
+:root{--bg:#05060a;--ink:#f4f5fb;--dim:#9aa0b4;--faint:#5d6378;--line:rgba(255,255,255,.08);--card:rgba(255,255,255,.035);--a:#7c5cff;--b:#22d3ee;--c:#ff4fa3;--d:#ffb547;--g:#3ee08f}
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{font-family:Inter,"Segoe UI Variable Text","Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--fg);line-height:1.55;-webkit-font-smoothing:antialiased}
-a{color:inherit}
-.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
-nav{position:sticky;top:0;z-index:20;backdrop-filter:saturate(1.6) blur(14px);background:color-mix(in srgb,var(--bg) 78%,transparent);border-bottom:1px solid var(--line)}
-nav .wrap{display:flex;align-items:center;gap:22px;height:62px}
-.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px;text-decoration:none}
-.brand img{width:30px;height:30px}
-nav .links{display:flex;gap:20px;margin-left:auto;font-size:14px;color:var(--dim)}
-nav .links a{text-decoration:none}
-nav .links a:hover{color:var(--fg)}
-.btn{display:inline-flex;align-items:center;gap:10px;border:0;border-radius:999px;padding:13px 22px;font:600 15px/1 Inter,system-ui,sans-serif;text-decoration:none;cursor:pointer;transition:transform .15s,box-shadow .2s,background .2s}
-.btn.primary{color:#fff;background:linear-gradient(100deg,var(--a1),var(--a2) 60%,#f472b6);box-shadow:0 10px 40px -10px color-mix(in srgb,var(--a2) 70%,transparent)}
-.btn.primary:hover{transform:translateY(-1px);box-shadow:0 14px 48px -10px color-mix(in srgb,var(--a2) 85%,transparent)}
-.btn.ghost{color:var(--fg);background:var(--card);border:1px solid var(--line)}
-.btn.ghost:hover{background:var(--bg2)}
-.btn.small{padding:9px 15px;font-size:13px}
-.hero{position:relative;overflow:hidden;padding:96px 0 40px;text-align:center}
-.hero:before{content:"";position:absolute;inset:-30% -10% auto;height:620px;background:radial-gradient(40% 60% at 30% 40%,color-mix(in srgb,var(--a1) 45%,transparent),transparent 70%),radial-gradient(40% 60% at 70% 30%,color-mix(in srgb,var(--a2) 35%,transparent),transparent 70%);filter:blur(30px);opacity:.75;z-index:-1}
-.pill{display:inline-flex;align-items:center;gap:10px;margin-bottom:26px;padding:7px 16px 7px 9px;border-radius:999px;background:#000;color:#fff;font-size:13px;font-weight:500;box-shadow:0 0 0 1.5px color-mix(in srgb,var(--a2) 60%,transparent),0 10px 40px -8px color-mix(in srgb,var(--a1) 80%,transparent)}
-.pill .dot{width:9px;height:9px;border-radius:50%;background:var(--a3);box-shadow:0 0 12px var(--a3)}
-h1{font-size:clamp(42px,7vw,76px);line-height:1.02;letter-spacing:-.035em;font-weight:800}
-h1 .grad{background:linear-gradient(95deg,#8f88ff,var(--a2) 55%,var(--a3));-webkit-background-clip:text;background-clip:text;color:transparent}
-.lead{max-width:640px;margin:22px auto 34px;font-size:19px;color:var(--dim)}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+code,.mono{font-family:"JetBrains Mono",monospace}
+.wrap{width:min(1180px,92vw);margin:auto}
+.grad{background:linear-gradient(100deg,var(--b),var(--a) 45%,var(--c));-webkit-background-clip:text;background-clip:text;color:transparent}
+#aur{position:fixed;inset:0;z-index:-2;pointer-events:none}
+.noise{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+#bar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:linear-gradient(90deg,var(--b),var(--a),var(--c))}
+nav{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:50;display:flex;align-items:center;gap:6px;padding:7px 8px 7px 16px;border-radius:999px;background:rgba(10,11,18,.6);backdrop-filter:blur(18px) saturate(1.4);border:1px solid var(--line);transition:.4s}
+nav.s{box-shadow:0 10px 40px rgba(0,0,0,.5)}
+nav .lg{display:flex;align-items:center;gap:9px;font-weight:700;margin-right:10px}
+nav .lg img{width:22px;height:22px;border-radius:6px}
+nav .ln{display:flex;gap:2px}
+nav .ln a{white-space:nowrap;font-size:13.5px;color:var(--dim);padding:7px 12px;border-radius:999px;transition:.2s}
+nav .ln a:hover{color:var(--ink);background:rgba(255,255,255,.06)}
+.btn{display:inline-flex;align-items:center;gap:9px;padding:12px 22px;border-radius:999px;font-weight:600;font-size:15px;transition:transform .25s,box-shadow .25s,background .25s;cursor:pointer;border:0;color:var(--ink)}
+.btn.p{background:linear-gradient(100deg,var(--a),var(--c));box-shadow:0 8px 30px rgba(124,92,255,.35)}
+.btn.p:hover{transform:translateY(-2px);box-shadow:0 14px 44px rgba(255,79,163,.45)}
+.btn.o{background:rgba(255,255,255,.06);border:1px solid var(--line)}
+.btn.o:hover{background:rgba(255,255,255,.1)}
+.btn.sm{padding:8px 16px;font-size:13.5px}
+header{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:130px 0 60px;position:relative}
+.pill-tag{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--dim);border:1px solid var(--line);background:var(--card);padding:6px 14px 6px 8px;border-radius:999px;margin-bottom:26px}
+.pill-tag b{background:linear-gradient(100deg,var(--a),var(--c));color:#fff;font-size:11px;padding:3px 9px;border-radius:999px}
+h1{font-size:clamp(44px,8.2vw,104px);line-height:.98;letter-spacing:-.045em;font-weight:800}
+.sub{padding:0 4vw;font-size:clamp(17px,2vw,20px);color:var(--dim);max-width:640px;margin:24px auto 34px}
 .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.meta{margin-top:18px;font-size:13px;color:var(--faint)}
-.video{margin:56px auto 0;max-width:1000px;border-radius:22px;overflow:hidden;border:1px solid var(--line);box-shadow:0 40px 120px -40px color-mix(in srgb,var(--a1) 60%,transparent);background:#000}
-.video video{display:block;width:100%;height:auto}
-section{padding:92px 0}
-.eyebrow{font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--a2)}
-h2{margin:10px 0 14px;font-size:clamp(30px,4vw,44px);letter-spacing:-.025em;line-height:1.1}
-.sub{color:var(--dim);max-width:620px;font-size:17px}
-.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:44px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:24px}
-.card h3{font-size:17px;margin:14px 0 6px}
+.meta{display:flex;gap:26px;justify-content:center;margin-top:30px;color:var(--faint);font-size:13.5px;flex-wrap:wrap}
+.meta span{display:flex;align-items:center;gap:7px}
+.meta i{width:6px;height:6px;border-radius:50%;background:var(--g);box-shadow:0 0 10px var(--g)}
+.stage{margin-top:64px;width:min(980px,92vw);aspect-ratio:16/8.4;border-radius:22px;position:relative;overflow:hidden;border:1px solid var(--line);background:radial-gradient(120% 90% at 20% 0%,#2a1b5c 0%,transparent 55%),radial-gradient(90% 80% at 100% 100%,#0d3d4f 0%,transparent 60%),linear-gradient(160deg,#0d0f1c,#090a12);box-shadow:0 40px 120px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.06);transform:perspective(1400px) rotateX(10deg);transition:transform 1s cubic-bezier(.2,.8,.2,1)}
+.stage.in{transform:perspective(1400px) rotateX(0)}
+.stage .wall{position:absolute;inset:0;background:url(assets/home.jpg) center/cover;opacity:.12;filter:blur(2px) saturate(1.3)}
+.stage .task{position:absolute;bottom:0;left:0;right:0;height:9%;background:rgba(20,22,34,.7);backdrop-filter:blur(10px);border-top:1px solid var(--line);display:flex;justify-content:center;align-items:center;gap:1.6%}
+.stage .task i{width:3.2%;aspect-ratio:1;border-radius:22%;background:rgba(255,255,255,.12)}
+.stage .task i:first-child{background:linear-gradient(135deg,var(--b),var(--a))}
+.halo{position:absolute;top:2.6%;left:50%;transform:translateX(-50%);background:#000;border-radius:999px;color:#fff;display:flex;align-items:center;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.06);transition:width .7s cubic-bezier(.32,1.4,.5,1),height .7s cubic-bezier(.32,1.4,.5,1),border-radius .7s;width:24%;height:7%;font-size:clamp(9px,1.3vw,14px)}
+.halo .st{position:absolute;inset:0;display:flex;align-items:center;padding:0 3.5%;gap:3%;opacity:0;transform:scale(.9);transition:opacity .35s,transform .45s;pointer-events:none}
+.halo .st.on{opacity:1;transform:none;transition-delay:.25s}
+.halo .art{height:66%;aspect-ratio:1;border-radius:22%;background:linear-gradient(135deg,var(--c),var(--d));flex:none}
+.halo .bars{display:flex;gap:3px;align-items:center;height:46%;margin-left:auto}
+.halo .bars i{width:3px;border-radius:2px;background:linear-gradient(var(--b),var(--a));animation:eq 1s ease-in-out infinite}
+.halo .bars i:nth-child(2){animation-delay:-.2s}.halo .bars i:nth-child(3){animation-delay:-.5s}.halo .bars i:nth-child(4){animation-delay:-.7s}.halo .bars i:nth-child(5){animation-delay:-.35s}
+@keyframes eq{0%,100%{height:25%}50%{height:100%}}
+.halo .big{flex-direction:column;align-items:stretch;justify-content:center;padding:3% 4.5%;gap:0}
+.halo .row{display:flex;align-items:center;gap:4%}
+.halo .bigart{width:22%;aspect-ratio:1;border-radius:16%;background:linear-gradient(135deg,var(--c),var(--d) 60%,var(--a));box-shadow:0 8px 30px rgba(255,79,163,.4);flex:none}
+.halo .t1{font-weight:700;font-size:1.25em;line-height:1.15}
+.halo .t2{color:#9aa0b4;font-size:.92em}
+.halo .ly{color:#fff;font-weight:700;font-size:1.05em;margin-top:5%;opacity:.95}
+.halo .ly s{text-decoration:none;color:#5d6378}
+.halo .prog{height:4px;border-radius:4px;background:#222;margin-top:5%;overflow:hidden}
+.halo .prog i{display:block;height:100%;width:40%;background:#fff;border-radius:4px;animation:pg 14s linear infinite}
+@keyframes pg{from{width:12%}to{width:92%}}
+.halo .ring{width:1.9em;height:1.9em;border-radius:50%;background:conic-gradient(var(--d) var(--p,70%),#2a2a2a 0);flex:none;display:grid;place-items:center}
+.halo .ring::after{content:"";width:68%;height:68%;border-radius:50%;background:#000}
+.halo .dot{width:.8em;height:.8em;border-radius:50%;background:var(--g);box-shadow:0 0 12px var(--g);animation:pu 1.4s infinite;flex:none}
+@keyframes pu{50%{opacity:.35}}
+.halo .chip{margin-left:auto;padding:.25em .8em;border-radius:999px;font-weight:600;font-size:.85em}
+.rim{position:absolute;inset:0;border-radius:22px;pointer-events:none;padding:2px;background:conic-gradient(from var(--r,0deg),var(--b),var(--a),var(--c),var(--d),var(--b));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .6s;animation:rr 4s linear infinite}
+.stage.music .rim{opacity:.85}
+@property --r{syntax:"<angle>";inherits:false;initial-value:0deg}
+@keyframes rr{to{--r:360deg}}
+.states{display:flex;gap:8px;justify-content:center;margin-top:22px;flex-wrap:wrap}
+.states button{font:500 13px Inter;color:var(--dim);background:var(--card);border:1px solid var(--line);padding:8px 15px;border-radius:999px;cursor:pointer;transition:.25s}
+.states button.on,.states button:hover{color:var(--ink);border-color:rgba(124,92,255,.55);background:rgba(124,92,255,.14)}
+section{padding:120px 0;position:relative}
+.eyebrow{font:600 12.5px Inter;letter-spacing:.18em;text-transform:uppercase;color:var(--b);margin-bottom:14px}
+h2{font-size:clamp(34px,5vw,62px);line-height:1.04;letter-spacing:-.035em;font-weight:800;max-width:820px}
+.lead{color:var(--dim);font-size:18px;max-width:640px;margin-top:18px}
+.ctr{text-align:center}.ctr h2,.ctr .lead{margin-left:auto;margin-right:auto}
+.rv{opacity:0;transform:translateY(34px);transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1)}
+.rv.in{opacity:1;transform:none}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:22px;overflow:hidden;margin-top:-30px}
+.stats div{background:#07080e;padding:34px 24px;text-align:center}
+.stats b{display:block;font-size:clamp(32px,4.4vw,52px);font-weight:800;letter-spacing:-.04em;line-height:1}
+.stats span{color:var(--faint);font-size:13.5px;margin-top:10px;display:block}
+.bento{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;margin-top:60px}
+.card{position:relative;border-radius:22px;background:var(--card);border:1px solid var(--line);padding:28px;overflow:hidden;transition:border-color .3s,transform .5s cubic-bezier(.2,.8,.2,1)}
+.card::before{content:"";position:absolute;inset:0;background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(124,92,255,.16),transparent 45%);opacity:0;transition:opacity .4s;pointer-events:none}
+.card:hover{border-color:rgba(255,255,255,.16)}
+.card:hover::before{opacity:1}
+.card h3{font-size:20px;letter-spacing:-.02em;margin:14px 0 8px}
 .card p{color:var(--dim);font-size:14.5px}
-.ic{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:color-mix(in srgb,var(--a1) 16%,transparent);color:#a9a3ff}
-.ic svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.shots{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:44px}
-.shots figure{background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
-.shots img{display:block;width:100%;height:auto}
-.shots figcaption{padding:12px 16px;font-size:14px;color:var(--dim)}
-.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:44px}
-.grid>*,.steps>*,.shots>*{min-width:0}
-.code{position:relative;margin-top:14px;background:#05050a;color:#e8e8f2;border:1px solid var(--line);border-radius:14px;padding:16px 92px 16px 16px;font:500 13px/1.5 "Cascadia Code",Consolas,ui-monospace,monospace;overflow-x:auto;white-space:pre}
-.code button{position:absolute;right:10px;top:10px}
-.tag{display:inline-block;font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px;background:color-mix(in srgb,var(--ok) 18%,transparent);color:var(--ok)}
-.tag.soon{background:var(--bg2);color:var(--faint)}
-table{width:100%;border-collapse:collapse;margin-top:28px;font-size:15px}
-td{padding:14px 4px;border-bottom:1px solid var(--line);vertical-align:top}
-td:first-child{width:200px;color:var(--dim)}
-.notes{margin-top:24px;padding-left:18px;color:var(--dim)}
-.notes li{margin:6px 0}
-details{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-top:12px}
-summary{cursor:pointer;font-weight:600;list-style:none}
-summary::-webkit-details-marker{display:none}
-summary:after{content:"+";float:right;color:var(--faint);font-weight:400}
-details[open] summary:after{content:"–"}
-details p{margin-top:10px;color:var(--dim);font-size:15px}
-footer{border-top:1px solid var(--line);padding:40px 0;color:var(--faint);font-size:14px}
-footer .wrap{display:flex;gap:20px;flex-wrap:wrap;align-items:center}
-footer .links{margin-left:auto;display:flex;gap:18px}
-.alt{background:var(--bg2)}
-@media (max-width:860px){.grid,.steps{grid-template-columns:1fr 1fr}.shots{grid-template-columns:1fr}nav .links{display:none}}
-@media (max-width:560px){.wrap{padding:0 16px}.grid,.steps{grid-template-columns:1fr}.hero{padding-top:64px}td:first-child{width:120px}}
+.card .ic{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-size:20px;background:linear-gradient(135deg,rgba(124,92,255,.3),rgba(34,211,238,.18));border:1px solid rgba(255,255,255,.1)}
+.card img{border-radius:12px;margin-top:20px;border:1px solid var(--line)}
+.card ul{list-style:none;margin-top:14px;display:grid;gap:7px}
+.card li{font-size:14px;color:var(--dim);padding-left:20px;position:relative}
+.card li::before{content:"";position:absolute;left:2px;top:.62em;width:8px;height:8px;border-radius:3px;background:linear-gradient(135deg,var(--b),var(--a))}
+.s2{grid-column:span 2}.s3{grid-column:span 3}.s4{grid-column:span 4}.s6{grid-column:span 6}
+.new{position:absolute;top:22px;right:22px;font-size:11px;font-weight:700;letter-spacing:.06em;padding:4px 10px;border-radius:999px;background:rgba(62,224,143,.12);color:var(--g);border:1px solid rgba(62,224,143,.3)}
+.new.soon{background:rgba(255,181,71,.12);color:var(--d);border-color:rgba(255,181,71,.3)}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:46px 0 22px}
+.tabs button{font:600 14px Inter;color:var(--dim);background:transparent;border:1px solid var(--line);padding:10px 18px;border-radius:12px;cursor:pointer;transition:.25s}
+.tabs button.on{color:#fff;background:linear-gradient(100deg,rgba(124,92,255,.3),rgba(255,79,163,.2));border-color:rgba(255,255,255,.18)}
+.pane{display:none;grid-template-columns:1.1fr 1fr;gap:40px;align-items:center}
+.pane.on{display:grid;animation:fi .6s cubic-bezier(.2,.8,.2,1)}
+@keyframes fi{from{opacity:0;transform:translateY(16px)}}
+.pane h3{font-size:30px;letter-spacing:-.03em;line-height:1.1}
+.pane p{color:var(--dim);margin-top:14px}
+.pane img{border-radius:18px;border:1px solid var(--line);box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.viz{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:56px}
+.vz{aspect-ratio:16/10;border-radius:18px;border:1px solid var(--line);position:relative;overflow:hidden;background:#0a0b13;cursor:default;transition:transform .5s cubic-bezier(.2,.8,.2,1),border-color .3s}
+.vz:hover{transform:translateY(-6px) scale(1.02);border-color:rgba(255,255,255,.2)}
+.vz canvas{position:absolute;inset:0;width:100%;height:100%}
+.vz span{position:absolute;left:14px;bottom:12px;font-weight:600;font-size:14px;text-shadow:0 2px 10px #000}
+.edge{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px;justify-content:center}
+.edge span{font-size:13.5px;padding:8px 16px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--dim)}
+.curs{display:grid;grid-template-columns:repeat(7,1fr);gap:12px;margin-top:56px}
+.cu{aspect-ratio:1;border-radius:18px;border:1px solid var(--line);background:var(--card);display:grid;place-items:center;position:relative;transition:.4s cubic-bezier(.2,.8,.2,1)}
+.cu:hover{transform:translateY(-6px) rotate(-3deg);background:rgba(255,255,255,.06)}
+.cu svg{width:38%;filter:drop-shadow(0 6px 14px rgba(0,0,0,.6));transition:transform .4s}
+.cu:hover svg{transform:scale(1.15)}
+.cu b{position:absolute;bottom:10px;font-size:12px;font-weight:600;color:var(--dim)}
+.tl{margin-top:56px;border-radius:22px;border:1px solid var(--line);background:var(--card);padding:30px}
+.tl .hd{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:10px}
+.tl .hd b{font-size:40px;font-weight:800;letter-spacing:-.04em}
+.tl .hd span{color:var(--faint);font-size:13.5px}
+.hrs{display:grid;grid-template-columns:repeat(24,1fr);gap:4px;align-items:end;height:160px;margin-top:24px}
+.hrs i{border-radius:5px 5px 2px 2px;background:linear-gradient(var(--a),var(--b));height:0;transition:height 1.2s cubic-bezier(.2,.8,.2,1)}
+.hl{display:grid;grid-template-columns:repeat(24,1fr);font-size:10.5px;color:var(--faint);margin-top:8px}
+.apps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:24px}
+.apps>div{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid var(--line)}
+.apps i{width:30px;height:30px;border-radius:9px;flex:none}
+.apps b{font-size:14px;display:block}.apps small{color:var(--faint);font-size:12.5px}
+.light{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:56px}
+.light .card b{font-size:44px;font-weight:800;letter-spacing:-.04em;display:block;line-height:1}
+.mq{overflow:hidden;margin-top:56px;mask:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.mq div{display:flex;gap:12px;width:max-content;animation:mq 42s linear infinite}
+.mq:hover div{animation-play-state:paused}
+.mq span{white-space:nowrap;padding:11px 18px;border-radius:999px;border:1px solid var(--line);background:var(--card);font-size:14px;color:var(--dim)}
+@keyframes mq{to{transform:translateX(-50%)}}
+.rel{margin-top:50px;display:grid;gap:14px}
+.rl{border-radius:20px;border:1px solid var(--line);background:var(--card);padding:26px 28px}
+.rl .h{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.rl .h b{font-size:20px}
+.rl .h span{color:var(--faint);font-size:13px}
+.rl .h em{font-style:normal;font-size:12px;padding:3px 10px;border-radius:999px;background:rgba(34,211,238,.12);color:var(--b)}
+.rl ul{margin:14px 0 0 18px;color:var(--dim);font-size:14.5px;display:grid;gap:5px}
+.dl{display:grid;grid-template-columns:1.3fr 1fr;gap:16px;margin-top:56px}
+.dl .main{padding:40px;background:radial-gradient(120% 120% at 0% 0%,rgba(124,92,255,.28),transparent 60%),radial-gradient(100% 100% at 100% 100%,rgba(255,79,163,.18),transparent 60%),var(--card)}
+.dl .main h3{font-size:34px;letter-spacing:-.03em}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 18px;font-size:13.5px;margin-top:24px}
+.kv span{color:var(--faint)}
+.kv code{word-break:break-all;color:var(--dim);font-size:12px}
+.cmd{display:flex;align-items:center;gap:10px;background:#000;border:1px solid var(--line);border-radius:12px;padding:12px 12px 12px 16px;margin-top:14px}
+.cmd code{flex:1;font-size:12.5px;color:#c9cde0;overflow-x:auto;white-space:nowrap}
+.cmd button{flex:none;font:600 12px Inter;color:var(--ink);background:rgba(255,255,255,.08);border:1px solid var(--line);padding:7px 12px;border-radius:8px;cursor:pointer}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
+.steps .card b{font-size:13px;color:var(--b);letter-spacing:.1em}
+.faq{max-width:820px;margin:50px auto 0;display:grid;gap:10px}
+.faq details{border-radius:16px;border:1px solid var(--line);background:var(--card);transition:background .3s}
+.faq details[open]{background:rgba(255,255,255,.055)}
+.faq summary{cursor:pointer;list-style:none;padding:20px 24px;font-weight:600;display:flex;justify-content:space-between;gap:20px}
+.faq summary::after{content:"+";font-size:22px;line-height:1;color:var(--dim);transition:transform .3s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq p{padding:0 24px 22px;color:var(--dim);font-size:15px}
+.priv{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:50px}
+.final{text-align:center;padding:140px 0}
+.final h2{margin:auto;font-size:clamp(40px,7vw,92px)}
+footer{border-top:1px solid var(--line);padding:40px 0;color:var(--faint);font-size:13.5px}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+footer a:hover{color:var(--ink)}
+#toast{position:fixed;bottom:26px;left:50%;transform:translate(-50%,40px);opacity:0;background:#111320;border:1px solid var(--line);padding:10px 18px;border-radius:999px;font-size:13.5px;transition:.35s;z-index:70}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+@media (max-width:980px){nav .ln{display:none}nav{gap:14px}.bento{grid-template-columns:1fr 1fr}.s2,.s3,.s4,.s6{grid-column:span 2}.stats{grid-template-columns:1fr 1fr}.pane,.pane.on{grid-template-columns:1fr}.viz{grid-template-columns:1fr 1fr}.curs{grid-template-columns:repeat(4,1fr)}.light,.dl,.steps,.priv{grid-template-columns:1fr}.apps{grid-template-columns:1fr}.hl span:nth-child(odd){visibility:hidden}}
+@media (max-width:560px){.bento{grid-template-columns:1fr}.s2,.s3,.s4,.s6{grid-column:span 1}.curs{grid-template-columns:repeat(3,1fr)}section{padding:84px 0}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
 </style>
 </head>
 <body>
-<nav><div class="wrap">
-  <a class="brand" href="#"><img src="assets/icon-256.png" alt="">Island</a>
-  <div class="links"><a href="#features">Features</a><a href="#screens">Screenshots</a><a href="#install">Install</a><a href="#release">Release notes</a><a href="#faq">FAQ</a><a href="https://github.com/consoleisrealistic/dynamic-island-for-windows">GitHub</a></div>
-  <a class="btn primary small" href="https://github.com/consoleisrealistic/dynamic-island-for-windows/releases/latest/download/IslandSetup.exe">Download</a>
-</div></nav>
+<canvas id="aur"></canvas><div class="noise"></div><div id="bar"></div>
 
-<header class="hero"><div class="wrap">
-  <div class="pill"><span class="dot"></span><span id="pill-text">Free for Windows 10 and 11</span></div>
-  <h1>The Dynamic Island,<br><span class="grad">made for Windows.</span></h1>
-  <p class="lead">Music with synced lyrics, notifications, timers, clipboard history and live stats, all in one pill at the top of your screen. Hover to open. Leave and it's gone.</p>
-  <div class="cta">
-    <a class="btn primary" href="https://github.com/consoleisrealistic/dynamic-island-for-windows/releases/latest/download/IslandSetup.exe">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 5.5 10 4.5v7H3zM11 4.4 21 3v8.5H11zM3 12.5h7v7l-7-1zM11 12.5h10V21l-10-1.4z"/></svg>
-      Download for Windows</a>
-    <a class="btn ghost" href="#install">Install with PowerShell</a>
+<nav id="nav">
+  <a class="lg" href="#top"><img src="assets/icon-256.png" alt="">DeskHalo</a>
+  <div class="ln"><a href="#features">Features</a><a href="#music">Music</a><a href="#cursors">Cursors</a><a href="#time">Screen Time</a><a href="#new">What's new</a><a href="#faq">FAQ</a></div>
+  <a class="btn p sm" href="#download">Download</a>
+</nav>
+
+<header id="top">
+  <a class="pill-tag rv" href="#new"><b id="tagv">v1.1</b><span id="tagt">Free for Windows 10 and 11</span></a>
+  <h1 class="rv">Your screen,<br><span class="grad">crowned.</span></h1>
+  <p class="sub rv">DeskHalo turns the top of your Windows screen into a living pill. Music with synced lyrics, AI answers, coding agents, timers, screen time, custom cursors and live stats, right where your eyes already are.</p>
+  <div class="cta rv"><a class="btn p" href="#download"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3 5.5 10.5 4.4v7.1H3zm0 13 7.5 1.1v-7H3zm8.5 1.3L21 21v-8.4h-9.5zm0-15.6v7.3H21V3z"/></svg>Download for Windows</a><a class="btn o" href="https://github.com/consoleisrealistic/dynamic-island-for-windows" target="_blank" rel="noopener">View on GitHub</a></div>
+  <div class="meta rv"><span><i></i><b id="dlh">—</b>&nbsp;downloads</span><span>No account</span><span>No telemetry</span><span>Windows 10 1809+</span></div>
+
+  <div class="stage rv" id="stage">
+    <div class="wall"></div>
+    <div class="rim"></div>
+    <div class="halo" id="halo">
+      <div class="st on" data-s="idle"><span class="mono" id="clk">9:41</span><span style="margin-left:auto;color:#9aa0b4">☀ 24°</span></div>
+      <div class="st" data-s="music"><div class="art"></div><span style="font-weight:600">Midnight Drive</span><div class="bars"><i></i><i></i><i></i><i></i><i></i></div></div>
+      <div class="st big" data-s="lyrics"><div class="row"><div class="bigart"></div><div><div class="t1">Midnight Drive</div><div class="t2">Neon Coast</div></div><div class="bars" style="height:24%"><i></i><i></i><i></i><i></i><i></i></div></div><div class="ly" id="ly">City lights are calling <s>me home</s></div><div class="prog"><i></i></div></div>
+      <div class="st" data-s="timer"><div class="ring" id="ring"></div><span style="font-weight:600">Focus</span><span class="mono chip" style="background:#2a1f05;color:var(--d)" id="tm">24:12</span></div>
+      <div class="st" data-s="agent"><div class="dot"></div><span><b>Claude Code</b> <span style="color:#9aa0b4">wants to run npm test</span></span><span class="chip" style="background:#0e2e1e;color:var(--g)">Allow</span></div>
+      <div class="st" data-s="ask"><span style="font-size:1.2em">✦</span><span style="color:#9aa0b4" id="askq">Ask anything…</span></div>
+    </div>
+    <div class="task"><i></i><i></i><i></i><i></i><i></i><i></i></div>
   </div>
-  <p class="meta" id="meta">Windows 10 (1809+) and Windows 11 · 64-bit · No Python required</p>
-  <div class="video"><video src="assets/demo.mp4" poster="assets/demo-poster.jpg" controls playsinline preload="metadata"></video></div>
-</div></header>
+  <div class="states rv" id="states"><button data-s="idle" class="on">Idle</button><button data-s="music">Music</button><button data-s="lyrics">Lyrics</button><button data-s="timer">Timer</button><button data-s="agent">Agent</button><button data-s="ask">Ask</button></div>
+</header>
 
-<section id="features"><div class="wrap">
-  <div class="eyebrow">Features</div>
-  <h2>Everything you glance at, in one place.</h2>
-  <p class="sub">Island stays out of your way as a slim pill, steps aside from your browser tabs, then expands into a full control centre the moment you need it.</p>
-  <div class="grid">
-    <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div><h3>Now playing</h3><p>Album art, a live visualiser, controls and time-synced lyrics for Spotify and any media app. Hinglish lyrics for Punjabi, Hindi and Haryanvi songs.</p></div>
-    <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg></div><h3>Ask and translate</h3><p>Ask Gemini anything with your own free key, with web answers when you want them. Translate between 160 languages.</p></div>
-    <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 4v4M9 13h.01M15 13h.01M9 17h6"/></svg></div><h3>AI agents</h3><p>Watch Claude Code, Codex, Cursor, Gemini CLI and more as they work, and approve their requests from the island.</p></div>
-    <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M8 10h8M8 14h5"/></svg></div><h3>Copy text and quick maths</h3><p>Grab text from anything on screen with offline OCR. Type sums or currency conversions and get answers instantly.</p></div>
-    <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></div><h3>Smart pop-ups</h3><p>Volume, brightness, track changes, USB devices, battery and messages slide in, then get out of your way.</p></div>
-    <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/></svg></div><h3>Clipboard history</h3><p>Every copy is confirmed and kept. Pin what matters and search the rest.</p></div>
-    <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M9 2h6"/></svg></div><h3>Focus timers</h3><p>Focus and break sessions stay visible in the pill, with a chime when time is up.</p></div>
-    <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><h3>Performance</h3><p>CPU, memory, GPU, network, drives and top processes at a glance.</p></div>
-    <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="6"/><path d="M6 12h4M8 10v4M15 11h.01M18 13h.01"/></svg></div><h3>Gaming mode</h3><p>A tiny HUD with real FPS, CPU, GPU, temperature, RAM and ping. Nothing is injected into games.</p></div>
-    <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M11 5 6 9H2v6h4l5 4zM15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg></div><h3>Sound and brightness</h3><p>Switch audio devices, set volume and screen brightness without digging through Windows settings.</p></div>
-    <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div><h3>Calendar and meetings</h3><p>Your month, the weather, reminders and one-click join for Google Meet, Zoom and Teams.</p></div>
-    <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9z"/></svg></div><h3>Featherweight</h3><p>About 0.2% CPU and 80 MB of RAM while idle. Smooth animations at your screen's refresh rate.</p></div>
+<div class="wrap">
+  <div class="stats rv">
+    <div><b class="grad" data-n id="dlt">0</b><span>Total downloads</span></div>
+    <div><b data-to="30">0</b><span>Features built in</span></div>
+    <div><b data-to="12">0</b><span>Visualizer styles</span></div>
+    <div><b data-to="160">0</b><span>Translate languages</span></div>
   </div>
-</div></section>
+</div>
 
-<section id="screens" class="alt"><div class="wrap">
-  <div class="eyebrow">Screenshots</div>
-  <h2>Looks at home on your desktop.</h2>
-  <div class="shots">
-    <figure><img src="assets/home.jpg" alt="Now playing view" loading="lazy"><figcaption>Now playing with controls and lyrics</figcaption></figure>
-    <figure><img src="assets/performance.jpg" alt="Performance view" loading="lazy"><figcaption>Performance at a glance</figcaption></figure>
-    <figure><img src="assets/weather.jpg" alt="Weather view" loading="lazy"><figcaption>Weather, hourly and five-day</figcaption></figure>
-    <figure><img src="assets/glow.jpg" alt="Glow settings" loading="lazy"><figcaption>Make the glow yours</figcaption></figure>
-    <figure><img src="assets/meetings.jpg" alt="Meetings view" loading="lazy"><figcaption>Upcoming meetings with one-click join</figcaption></figure>
-    <figure><img src="assets/launcher.jpg" alt="App launcher" loading="lazy"><figcaption>Launch any installed app</figcaption></figure>
+<section id="features">
+  <div class="wrap">
+    <div class="eyebrow rv">Everything, at a glance</div>
+    <h2 class="rv">One pill. <span class="grad">Thirty things</span> you used to dig for.</h2>
+    <p class="lead rv">Hover it, click it or just glance. DeskHalo shows what matters, then gets out of your way.</p>
+    <div class="bento">
+      <div class="card s4 rv"><div class="ic">♫</div><h3>Now playing, everywhere</h3><p>Album art, controls, a live visualizer and time-synced lyrics for Spotify, browsers and any media app. Hinglish lyrics for Punjabi, Hindi and Haryanvi songs.</p><img src="assets/lyrics.jpg" alt="Lyrics in DeskHalo" loading="lazy"></div>
+      <div class="card s2 rv"><div class="ic">✦</div><h3>Ask and Translate</h3><p>Ask Gemini anything with your own free key, with web answers when you want them. Translate between 160 languages as you type.</p><ul><li>Switches models when a free limit is hit</li><li>One request at a time, no wasted quota</li></ul></div>
+      <div class="card s2 rv"><div class="ic">⌘</div><h3>AI agents</h3><p>Watch Claude Code, Codex, Cursor, Gemini CLI, OpenCode, Amp and more as they work. Approve or deny their requests from the pill.</p></div>
+      <div class="card s2 rv"><div class="ic">⧉</div><h3>Clipboard history</h3><p>Every copy is confirmed and kept. Pin what matters, search the rest.</p></div>
+      <div class="card s2 rv"><div class="ic">⌗</div><h3>Copy text from the screen</h3><p>Drag over anything and grab its text with offline OCR. Works on images, videos and apps that block copying.</p></div>
+      <div class="card s3 rv"><div class="ic">◔</div><h3>Calendar, weather, meetings</h3><p>Your month, the forecast, reminders and one-click join for Google Meet, Zoom and Teams.</p><img src="assets/meetings.jpg" alt="Meetings" loading="lazy"></div>
+      <div class="card s3 rv"><div class="ic">▤</div><h3>Performance</h3><p>CPU, memory, GPU, network, drives and the busiest processes at a glance.</p><img src="assets/performance.jpg" alt="Performance stats" loading="lazy"></div>
+      <div class="card s2 rv"><div class="ic">◎</div><h3>Gaming HUD</h3><p>A tiny overlay with real FPS, CPU, GPU, temperature, RAM and ping. Nothing is injected into games.</p></div>
+      <div class="card s2 rv"><div class="ic">◐</div><h3>Focus timers</h3><p>Focus and break sessions live in the pill with a chime when time is up. Plus a to-do list and water reminders.</p></div>
+      <div class="card s2 rv"><div class="ic">◉</div><h3>Smart pop-ups</h3><p>Volume, brightness, track changes, USB devices, battery and messages slide in, then slide away.</p></div>
+      <div class="card s2 rv"><div class="ic">✉</div><h3>Mail</h3><p>Gmail and Outlook in one inbox. Read, reply and send with attachments without opening a browser.</p></div>
+      <div class="card s2 rv"><div class="ic">⎚</div><h3>Screenshots</h3><p>Snip a region, annotate, copy or save. Shots land in Pictures › DeskHalo Screenshots.</p></div>
+      <div class="card s2 rv"><div class="ic">∑</div><h3>Quick maths</h3><p>Type sums, unit or currency conversions and get answers instantly. Live rates when online.</p></div>
+      <div class="card s2 rv"><div class="ic">⇅</div><h3>Speed test</h3><p>Check download, upload and ping in seconds from the pill.</p></div>
+      <div class="card s2 rv"><div class="ic">☰</div><h3>Notes</h3><p>A scratchpad that's always one click away. Save to a text file whenever you like.</p></div>
+      <div class="card s2 rv"><div class="ic">🔊</div><h3>Sound and brightness</h3><p>Switch audio devices, set volume and screen brightness without hunting through Settings.</p></div>
+      <div class="card s3 rv"><span class="new soon">COMING IN 1.2</span><div class="ic">➶</div><h3>Custom cursors</h3><p>Fourteen hand-built pointer packs with matching hand, text, resize and busy cursors, any size you like. Your old pointers come back with one click.</p></div>
+      <div class="card s3 rv"><span class="new soon">COMING IN 1.2</span><div class="ic">⌛</div><h3>Screen Time</h3><p>Every minute from 12 AM to 11:59 PM, by app and by hour. Idle time is skipped, and it all stays on your PC.</p></div>
+      <div class="card s6 rv"><div class="ic">⚙</div><h3>Make it yours</h3><p>Every pixel is a setting. Size, position, corner radius, colours, fonts, the pill's behaviour around full-screen apps, the visualizer's FPS and what each click does.</p><img src="assets/glow.jpg" alt="Customise DeskHalo" loading="lazy"></div>
+    </div>
   </div>
-</div></section>
+</section>
 
-<section id="install"><div class="wrap">
-  <div class="eyebrow">Install</div>
-  <h2>Up and running in a minute.</h2>
-  <p class="sub">No Python, Git or developer tools needed. Island installs for your account without admin rights.</p>
-  <div class="steps">
-    <div class="card"><span class="tag">Recommended</span><h3>One command</h3><p>Open PowerShell and run this. It verifies the download before installing.</p>
-      <div class="code" id="cmd">irm https://raw.githubusercontent.com/consoleisrealistic/dynamic-island-for-windows/main/install.ps1 | iex<button class="btn ghost small" data-copy="cmd">Copy</button></div></div>
-    <div class="card"><span class="tag">Installer</span><h3>Download</h3><p>Run IslandSetup.exe and follow the steps. Compare its SHA-256 with SHA256SUMS.txt in the release if you like.</p>
-      <p style="margin-top:14px"><a class="btn ghost small" href="https://github.com/consoleisrealistic/dynamic-island-for-windows/releases/latest/download/IslandSetup.exe">IslandSetup.exe</a></p></div>
-    <div class="card"><span class="tag soon">Coming later</span><h3>Store and WinGet</h3><p>Island is not on the Microsoft Store or in WinGet yet. This page will link to them once they are published.</p></div>
+<section id="look" style="padding-top:40px">
+  <div class="wrap">
+    <div class="eyebrow rv">Feels native</div>
+    <h2 class="rv">Looks at home on <span class="grad">your desktop.</span></h2>
+    <div class="tabs rv" id="tabs"><button class="on" data-p="0">Home</button><button data-p="1">Launcher</button><button data-p="2">Weather</button><button data-p="3">Clipboard</button><button data-p="4">Gaming</button></div>
+    <div class="pane on rv"><div><h3>A home that knows what you need.</h3><p>Hover to expand. Music, the next meeting, the weather and your shortcuts in one tidy panel.</p></div><img src="assets/home.jpg" alt="Home panel" loading="lazy"></div>
+    <div class="pane"><div><h3>Launch anything, instantly.</h3><p>Pin your apps, folders and sites. Open them with one click from the top of the screen.</p></div><img src="assets/launcher.jpg" alt="Launcher" loading="lazy"></div>
+    <div class="pane"><div><h3>The sky, at a glance.</h3><p>Current conditions, hourly and daily forecasts for where you are, no sign-in needed.</p></div><img src="assets/weather.jpg" alt="Weather" loading="lazy"></div>
+    <div class="pane"><div><h3>Never lose a copy again.</h3><p>Text, links and images you copy are kept and searchable. Pin the things you paste every day.</p></div><img src="assets/clipboard.jpg" alt="Clipboard" loading="lazy"></div>
+    <div class="pane"><div><h3>Stats that stay out of the game.</h3><p>A slim HUD reads real frame times from Windows. It never touches the game itself.</p></div><img src="assets/gaming.jpg" alt="Gaming HUD" loading="lazy"></div>
   </div>
-  <table>
-    <tr><td>Windows</td><td>Windows 10 version 1809 or later, or Windows 11</td></tr>
-    <tr><td>Architecture</td><td>64-bit (x64)</td></tr>
-    <tr><td>Disk space</td><td>About 200 MB</td></tr>
-    <tr><td>Updates</td><td>Built in. Island checks every 8 hours and installs verified updates when you say so.</td></tr>
-    <tr><td>Uninstall</td><td>Settings › Apps › Installed apps › Island › Uninstall. Your settings are kept unless you choose to remove them.</td></tr>
-  </table>
-</div></section>
+</section>
 
-<section id="release" class="alt"><div class="wrap">
-  <div class="eyebrow">Release notes</div>
-  <h2 id="rel-title">What's new</h2>
-  <p class="sub" id="rel-date">The latest release notes appear here once a version is published.</p>
-  <ul class="notes" id="rel-notes"></ul>
-  <p style="margin-top:22px"><a class="btn ghost small" href="https://github.com/consoleisrealistic/dynamic-island-for-windows/releases">All releases on GitHub</a></p>
-</div></section>
-
-<section id="faq"><div class="wrap">
-  <div class="eyebrow">FAQ</div>
-  <h2>Questions, answered.</h2>
-  <details><summary>Is Island free?</summary><p>Yes. Island is freeware: free on any number of your own PCs, for personal or commercial use.</p></details>
-  <details><summary>Why does Windows SmartScreen warn me?</summary><p>Island releases are not code-signed yet, and new apps are flagged until they build a reputation. Choose More info, then Run anyway. To confirm the file is genuine, compare its SHA-256 with SHA256SUMS.txt in the release.</p></details>
-  <details><summary>Does Island collect my data?</summary><p>No. There are no analytics or telemetry. It only goes online for features you use: lyrics, weather, Google Calendar if you connect it, Gemini with your own key, currency rates, speed tests and update checks. Read the <a href="https://github.com/consoleisrealistic/dynamic-island-for-windows/blob/main/PRIVACY.md">privacy policy</a>.</p></details>
-  <details><summary>Will it slow down my games?</summary><p>No. Gaming mode shrinks Island to a tiny HUD, mutes non-essential pop-ups and reads FPS from Windows' own event tracing. It never injects code into games or touches anti-cheat.</p></details>
-  <details><summary>Which music apps work?</summary><p>Spotify, browsers, media players and any app that shows up in the Windows media controls.</p></details>
-  <details><summary>How do updates work?</summary><p>Island checks for a new version at start-up and every 8 hours. When one is out, Settings › Updates shows the release notes and a Download and install button. The installer is verified before it runs and your settings are kept.</p></details>
-  <details><summary>How do I uninstall it?</summary><p>Settings › Apps › Installed apps › Island › Uninstall. The uninstaller asks whether to remove your settings too.</p></details>
-</div></section>
-
-<footer><div class="wrap">
-  <span>© 2026 <a href="https://github.com/consoleisrealistic">@consoleisrealistic</a> · Island is freeware</span>
-  <div class="links">
-    <a href="https://github.com/consoleisrealistic/dynamic-island-for-windows">GitHub</a>
-    <a href="https://github.com/consoleisrealistic/dynamic-island-for-windows/blob/main/PRIVACY.md">Privacy</a>
-    <a href="https://github.com/consoleisrealistic/dynamic-island-for-windows/blob/main/LICENSE">License</a>
-    <a href="https://github.com/consoleisrealistic/dynamic-island-for-windows/issues">Support</a>
+<section id="music">
+  <div class="wrap ctr">
+    <div class="eyebrow rv">Ambient mode</div>
+    <h2 class="rv">Turn any song into a <span class="grad">light show.</span></h2>
+    <p class="lead rv">Go full screen and your music takes over: synced lyrics, the album art in 3D and twelve visualizer styles that react to every beat.</p>
+    <div class="viz" id="viz"></div>
+    <div class="edge rv"><span>Edge light: Calm</span><span>Fast</span><span>Superfast</span><span>DJ</span><span>Notch</span><span>Curved edges</span><span>Rainbow</span><span>Your own colours</span></div>
   </div>
-</div></footer>
+</section>
+
+<section id="cursors">
+  <div class="wrap ctr">
+    <div class="eyebrow rv">Coming in 1.2</div>
+    <h2 class="rv">Point with <span class="grad">personality.</span></h2>
+    <p class="lead rv">Fourteen original cursor packs, drawn as vectors so they stay sharp at any size. Pick one in Settings and every pointer in Windows changes, from the arrow to the busy spinner.</p>
+    <div class="curs" id="curs"></div>
+  </div>
+</section>
+
+<section id="time">
+  <div class="wrap">
+    <div class="eyebrow rv">Coming in 1.2</div>
+    <h2 class="rv">Know where <span class="grad">your day went.</span></h2>
+    <p class="lead rv">Screen Time follows the app you're using, hour by hour. Step away and it stops counting. Nothing leaves your PC.</p>
+    <div class="tl rv">
+      <div class="hd"><div><b id="tot">6h 42m</b> <span style="color:var(--dim)">today</span></div><span>Example day</span></div>
+      <div class="hrs" id="hrs"></div>
+      <div class="hl" id="hl"></div>
+      <div class="apps"><div><i style="background:linear-gradient(135deg,#22d3ee,#3b82f6)"></i><div><b>Visual Studio Code</b><small>2h 51m · Coding</small></div></div><div><i style="background:linear-gradient(135deg,#3ee08f,#16a34a)"></i><div><b>Spotify</b><small>1h 38m · Music</small></div></div><div><i style="background:linear-gradient(135deg,#ff4fa3,#7c5cff)"></i><div><b>Chrome</b><small>1h 24m · Browsing</small></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="light">
+  <div class="wrap">
+    <div class="eyebrow rv">Featherweight</div>
+    <h2 class="rv">Light enough to <span class="grad">forget it's there.</span></h2>
+    <p class="lead rv">DeskHalo sleeps when you do. Animations only run while you can see them, and memory is handed back to Windows when panels close.</p>
+    <div class="light">
+      <div class="card rv"><div class="ic">⏸</div><h3>Still when you're away</h3><p>After a minute without input the pill stops redrawing and checks in less often. Move the mouse and it's back instantly.</p></div>
+      <div class="card rv"><div class="ic">▦</div><h3>Only what's on screen</h3><p>Hidden panels and animations pause. The collapsed visualizer runs at a gentle frame rate you can change in Settings.</p></div>
+      <div class="card rv"><div class="ic">⤓</div><h3>Loads on demand</h3><p>Heavy parts like mail sign-in load only when you open them, so start-up stays quick.</p></div>
+      <div class="card rv"><div class="ic">↺</div><h3>Gives memory back</h3><p>Panels release their memory when they close, so DeskHalo stays small over long sessions.</p></div>
+    </div>
+    <div class="mq rv"><div id="mq"></div></div>
+  </div>
+</section>
+
+<section id="new">
+  <div class="wrap">
+    <div class="eyebrow rv">Changelog</div>
+    <h2 class="rv">What's <span class="grad">new.</span></h2>
+    <p class="lead rv">Straight from GitHub. DeskHalo tells you when an update is ready and installs it for you.</p>
+    <div class="rel" id="rel"><div class="rl"><div class="h"><b>Loading releases…</b></div></div></div>
+  </div>
+</section>
+
+<section id="download">
+  <div class="wrap">
+    <div class="eyebrow rv">Get it</div>
+    <h2 class="rv">Up and running <span class="grad">in a minute.</span></h2>
+    <div class="dl">
+      <div class="card main rv">
+        <h3>DeskHalo <span id="dv">1.1</span></h3>
+        <p style="color:var(--dim);margin-top:8px">The installer for Windows 10 and 11, 64-bit. Updates install themselves from inside the app.</p>
+        <div class="cta" style="justify-content:flex-start;margin-top:26px"><a class="btn p" id="dlb" href="https://github.com/consoleisrealistic/dynamic-island-for-windows/releases/latest">Download installer</a><a class="btn o" href="https://github.com/consoleisrealistic/dynamic-island-for-windows/releases/latest" target="_blank" rel="noopener">All files</a></div>
+        <div class="kv"><span>Released</span><b id="dd">—</b><span>Size</span><b id="ds">—</b><span>Downloads</span><b id="dc">—</b><span>SHA-256</span><code id="dh">—</code></div>
+      </div>
+      <div class="card rv">
+        <div class="ic">›_</div><h3>One command</h3><p>Open PowerShell and paste this. It checks the download's SHA-256 before installing.</p>
+        <div class="cmd"><code id="cmd1">irm https://raw.githubusercontent.com/consoleisrealistic/dynamic-island-for-windows/main/install.ps1 | iex</code><button data-c="cmd1">Copy</button></div>
+        <p style="margin-top:22px">Prefer no installer? Grab <b>Island-portable.zip</b> from the release, extract it and run it. It tells you when updates are out.</p>
+      </div>
+    </div>
+    <h3 class="rv" style="font-size:24px;margin:60px 0 6px;letter-spacing:-.02em">Seeing a blue “Windows protected your PC” box?</h3>
+    <p class="rv" style="color:var(--dim)">SmartScreen shows this for new apps that don't have many downloads yet. It's normal for small independent apps.</p>
+    <div class="steps">
+      <div class="card rv"><b>STEP 1</b><h3>Click “More info”</h3><p>It's the small link under the message.</p></div>
+      <div class="card rv"><b>STEP 2</b><h3>Click “Run anyway”</h3><p>The button appears once you've clicked More info.</p></div>
+      <div class="card rv"><b>STEP 3</b><h3>Check it if you like</h3><p>Compare the file's SHA-256 with SHA256SUMS.txt in the release. In PowerShell: <code>Get-FileHash .\IslandSetup.exe</code></p></div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap ctr">
+    <div class="eyebrow rv">FAQ</div>
+    <h2 class="rv">Questions, <span class="grad">answered.</span></h2>
+    <div class="faq" style="text-align:left">
+      <details class="rv"><summary>Is DeskHalo free?</summary><p>Yes. No account, no ads and no trial. Ask and Translate use your own free Gemini key from Google AI Studio.</p></details>
+      <details class="rv"><summary>Was DeskHalo called Island before?</summary><p>Yes. Same app, new name. If you already have Island installed, updating keeps all your settings, notes and history, and the installer files still carry the old name for now.</p></details>
+      <details class="rv"><summary>Which Windows versions work?</summary><p>Windows 10 version 1809 or newer and Windows 11, 64-bit.</p></details>
+      <details class="rv"><summary>Does it work with Spotify, YouTube and other players?</summary><p>Anything that shows up in Windows' media controls works: Spotify, browsers, Apple Music, VLC and more. Lyrics come from public lyric services.</p></details>
+      <details class="rv"><summary>Will it slow my games down?</summary><p>No. Gaming mode reads frame times that Windows already records and draws a separate overlay. Nothing is injected into the game. You can also have the pill hide when a full-screen app is open.</p></details>
+      <details class="rv"><summary>Can I go back to my normal cursors?</summary><p>Yes. One click in Settings restores the pointers you had before, and uninstalling restores them too.</p></details>
+      <details class="rv"><summary>How do updates work?</summary><p>DeskHalo checks GitHub for new versions, verifies the download's SHA-256, installs it and reopens. You can turn checks off in Settings › Updates.</p></details>
+      <details class="rv"><summary>How do I uninstall it?</summary><p>Settings › Apps › Installed apps › DeskHalo › Uninstall. You'll be asked whether to keep your data.</p></details>
+    </div>
+  </div>
+</section>
+
+<section id="privacy" style="padding-top:20px">
+  <div class="wrap ctr">
+    <div class="eyebrow rv">Privacy</div>
+    <h2 class="rv">Your stuff stays <span class="grad">yours.</span></h2>
+    <div class="priv" style="text-align:left">
+      <div class="card rv"><div class="ic">⛨</div><h3>No telemetry</h3><p>No analytics, no tracking, no account. DeskHalo doesn't phone home.</p></div>
+      <div class="card rv"><div class="ic">⌂</div><h3>Stored on your PC</h3><p>Clipboard, notes, screen time and settings live in your AppData folder. Delete them any time.</p></div>
+      <div class="card rv"><div class="ic">⇄</div><h3>Online only when asked</h3><p>Lyrics, weather, rates, Gemini and mail connect only when you use them. <a href="https://github.com/consoleisrealistic/dynamic-island-for-windows/blob/main/PRIVACY.md" style="color:var(--b)">Read the policy</a>.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="wrap">
+    <h2 class="rv">Crown your <span class="grad">screen.</span></h2>
+    <p class="lead rv" style="margin:22px auto 34px">Join <b id="dlf">everyone</b> who already put DeskHalo on top.</p>
+    <div class="cta rv"><a class="btn p" href="#download">Download DeskHalo</a><a class="btn o" href="https://github.com/consoleisrealistic/dynamic-island-for-windows/issues" target="_blank" rel="noopener">Request a feature</a></div>
+  </div>
+</section>
+
+<footer><div class="wrap"><span>© <span id="yr">2026</span> DeskHalo · made by <a href="https://github.com/consoleisrealistic">@consoleisrealistic</a></span><span style="display:flex;gap:20px"><a href="https://github.com/consoleisrealistic/dynamic-island-for-windows">GitHub</a><a href="https://github.com/consoleisrealistic/dynamic-island-for-windows/blob/main/PRIVACY.md">Privacy</a><a href="https://github.com/consoleisrealistic/dynamic-island-for-windows/blob/main/LICENSE">License</a><a href="https://github.com/consoleisrealistic/dynamic-island-for-windows/issues">Feedback</a></span></div></footer>
+<div id="toast"></div>
 
 <script>
-document.querySelectorAll('[data-copy]').forEach(function (b) {
-  b.addEventListener('click', function () {
-    var t = document.getElementById(b.dataset.copy).firstChild.textContent.trim();
-    try { navigator.clipboard.writeText(t).then(function () { b.textContent = 'Copied'; setTimeout(function () { b.textContent = 'Copy'; }, 1600); }); } catch (e) {}
-  });
-});
-fetch('https://raw.githubusercontent.com/consoleisrealistic/dynamic-island-for-windows/main/version.json', { cache: 'no-store' })
-  .then(function (r) { if (!r.ok) throw 0; return r.json(); })
-  .then(function (v) {
-    if (!/^\d+\.\d+\.\d+/.test(v.version || '')) return;
-    document.getElementById('pill-text').textContent = 'Island ' + v.version + ' is out';
-    document.getElementById('meta').textContent = 'Version ' + v.version + (v.released ? ' · ' + v.released : '') + ' · Windows 10 (1809+) and Windows 11 · 64-bit';
-    document.getElementById('rel-title').textContent = "What's new in " + v.version;
-    document.getElementById('rel-date').textContent = v.released ? 'Released ' + v.released : '';
-    var ul = document.getElementById('rel-notes');
-    (v.release_notes || []).slice(0, 20).forEach(function (n) { var li = document.createElement('li'); li.textContent = n; ul.appendChild(li); });
-  })
-  .catch(function () {});
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const repo='consoleisrealistic/dynamic-island-for-windows';
+const calm=matchMedia('(prefers-reduced-motion:reduce)').matches;
+$('#yr').textContent=new Date().getFullYear();
+
+(()=>{const c=$('#aur'),x=c.getContext('2d');let w,h,t=0;const bl=[[.2,.1,'124,92,255'],[.85,.25,'34,211,238'],[.5,.9,'255,79,163']];
+function rs(){w=c.width=innerWidth/3;h=c.height=innerHeight/3;c.style.width=innerWidth+'px';c.style.height=innerHeight+'px'}rs();addEventListener('resize',rs);
+function f(){t+=.003;x.clearRect(0,0,w,h);x.globalCompositeOperation='lighter';bl.forEach((b,i)=>{const px=(b[0]+Math.sin(t*(1+i*.3)+i)*.12)*w,py=(b[1]+Math.cos(t*(.8+i*.2)+i*2)*.1)*h,r=Math.max(w,h)*.55,g=x.createRadialGradient(px,py,0,px,py,r);g.addColorStop(0,`rgba(${b[2]},.16)`);g.addColorStop(1,'rgba(0,0,0,0)');x.fillStyle=g;x.fillRect(0,0,w,h)});if(!calm&&!document.hidden)requestAnimationFrame(f);else setTimeout(()=>requestAnimationFrame(f),500)}f()})();
+
+addEventListener('scroll',()=>{const s=scrollY/(document.documentElement.scrollHeight-innerHeight);$('#bar').style.width=s*100+'%';$('#nav').classList.toggle('s',scrollY>30)},{passive:true});
+
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);if(e.target.dataset.to)count(e.target,+e.target.dataset.to)}}),{threshold:.12,rootMargin:'0px 0px -40px'});
+function watch(){$$('.rv:not(.in),[data-to]').forEach((el,i)=>{if(el.classList.contains('rv'))el.style.transitionDelay=(i%4)*70+'ms';io.observe(el)})}watch();
+setTimeout(()=>$('#stage').classList.add('in'),300);
+function count(el,n){const d=1600,s=performance.now();(function k(t){const p=Math.min(1,(t-s)/d),e=1-Math.pow(1-p,4);el.textContent=Math.round(n*e).toLocaleString();if(p<1)requestAnimationFrame(k)})(s)}
+
+$$('.card').forEach(c=>c.addEventListener('pointermove',e=>{const r=c.getBoundingClientRect();c.style.setProperty('--mx',e.clientX-r.left+'px');c.style.setProperty('--my',e.clientY-r.top+'px')}));
+
+const size={idle:['24%','7%'],music:['34%','7%'],lyrics:['46%','34%'],timer:['30%','7%'],agent:['50%','7%'],ask:['40%','8%']};
+let cur='idle',auto=true,ord=Object.keys(size);
+function show(s){cur=s;const h=$('#halo');h.style.width=size[s][0];h.style.height=size[s][1];h.style.borderRadius=s==='lyrics'?'28px':'999px';$$('.halo .st').forEach(e=>e.classList.toggle('on',e.dataset.s===s));$$('#states button').forEach(b=>b.classList.toggle('on',b.dataset.s===s));$('#stage').classList.toggle('music',s==='music'||s==='lyrics')}
+$$('#states button').forEach(b=>b.onclick=()=>{auto=false;show(b.dataset.s)});
+setInterval(()=>{if(auto&&!document.hidden)show(ord[(ord.indexOf(cur)+1)%ord.length])},3400);
+$('#halo').onmouseenter=()=>{if(cur==='music')show('lyrics')};
+const lines=[['City lights are calling','me home'],['Radio low, the night','is open'],['Hold the wheel and','let it go']];let li=0;
+setInterval(()=>{li=(li+1)%lines.length;$('#ly').innerHTML=lines[li][0]+' <s>'+lines[li][1]+'</s>'},2600);
+let sec=24*60+12;setInterval(()=>{sec=sec>0?sec-1:1500;$('#tm').textContent=Math.floor(sec/60)+':'+String(sec%60).padStart(2,'0');$('#ring').style.setProperty('--p',(sec/1500*100)+'%');const d=new Date();$('#clk').textContent=d.toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})},1000);
+const qs=['Ask anything…','What is 18% of 2,450?','Translate “good morning” to Japanese','Summarise this page'];let qi=0;setInterval(()=>{qi=(qi+1)%qs.length;$('#askq').textContent=qs[qi]},2200);
+
+$$('#tabs button').forEach(b=>b.onclick=()=>{$$('#tabs button').forEach(x=>x.classList.toggle('on',x===b));$$('.pane').forEach((p,i)=>{p.classList.toggle('on',i==b.dataset.p);p.classList.add('in')})});
+
+const styles=['Flow','Wall','Constellation','Punch','Messages','Studio','Depth','Lens','Code','Branches','Web','Lock screen'];
+const vz=$('#viz'),cv=[];
+styles.forEach((n,i)=>{const d=document.createElement('div');d.className='vz rv';d.innerHTML=`<canvas></canvas><span>${n}</span>`;vz.appendChild(d);cv.push({c:d.querySelector('canvas'),i,hot:0,vis:false});d.onmouseenter=()=>cv[i].hot=1;d.onmouseleave=()=>cv[i].hot=0});
+const vo=new IntersectionObserver(es=>es.forEach(e=>{const o=cv.find(v=>v.c.parentNode===e.target);if(o)o.vis=e.isIntersecting}));cv.forEach(o=>vo.observe(o.c.parentNode));
+const pal=[['#7c5cff','#22d3ee'],['#ff4fa3','#ffb547'],['#22d3ee','#3ee08f'],['#ff4fa3','#7c5cff'],['#3b82f6','#22d3ee'],['#ffb547','#ff4fa3'],['#7c5cff','#ff4fa3'],['#22d3ee','#7c5cff'],['#3ee08f','#22d3ee'],['#ffb547','#7c5cff'],['#ff4fa3','#22d3ee'],['#7c5cff','#ffb547']];
+function beat(t,k){return .5+.5*Math.sin(t*3+k*.7)*Math.sin(t*1.3+k*.31)+.25*Math.max(0,Math.sin(t*8))}
+function draw(o,t){const c=o.c,r=c.getBoundingClientRect();if(c.width!==r.width*1.5|0){c.width=r.width*1.5;c.height=r.height*1.5}const x=c.getContext('2d'),W=c.width,H=c.height,[a,b]=pal[o.i],sp=1+o.hot*1.4;t*=sp;x.clearRect(0,0,W,H);const g=x.createLinearGradient(0,0,W,H);g.addColorStop(0,a);g.addColorStop(1,b);x.fillStyle=g;x.strokeStyle=g;
+switch(o.i){
+case 0:for(let k=0;k<5;k++){x.globalAlpha=.25+k*.12;x.beginPath();for(let X=0;X<=W;X+=6){const Y=H*.55+Math.sin(X*.02+t*2+k)*H*.12*beat(t,k)+k*6;X?x.lineTo(X,Y):x.moveTo(X,Y)}x.lineWidth=3;x.stroke()}break;
+case 1:{const n=24,bw=W/n;for(let k=0;k<n;k++){const v=beat(t,k)*H*.7;x.globalAlpha=.9;x.fillRect(k*bw+2,H-v,bw-4,v)}}break;
+case 2:for(let k=0;k<40;k++){const px=(Math.sin(k*91.7)*.5+.5)*W,py=(Math.cos(k*37.3)*.5+.5)*H,s=2+beat(t,k)*4;x.globalAlpha=.8;x.beginPath();x.arc(px+Math.sin(t+k)*6,py+Math.cos(t+k)*6,s,0,7);x.fill();if(k)for(let j=k-3;j<k;j++)if(j>=0){x.globalAlpha=.15;x.beginPath();x.moveTo(px,py);x.lineTo((Math.sin(j*91.7)*.5+.5)*W,(Math.cos(j*37.3)*.5+.5)*H);x.lineWidth=1;x.stroke()}}break;
+case 3:{const s=Math.min(W,H)*(.25+.12*beat(t,1));x.globalAlpha=1;x.beginPath();x.arc(W/2,H/2,s,0,7);x.fill();x.globalAlpha=.3;x.beginPath();x.arc(W/2,H/2,s*1.4,0,7);x.lineWidth=6;x.stroke()}break;
+case 4:for(let k=0;k<4;k++){const y=((k*H*.3-t*40)%(H*1.2)+H*1.2)%(H*1.2)-H*.1,l=k%2;x.globalAlpha=.85;x.beginPath();x.roundRect(l?W*.4:W*.08,y,W*.52,H*.16,14);x.fill()}break;
+case 5:{x.globalAlpha=1;x.beginPath();x.roundRect(W*.12,H*.22,H*.56,H*.56,12);x.fill();x.fillStyle='#fff';x.globalAlpha=.7;x.fillRect(W*.12+H*.66,H*.36,W*.38,8);x.globalAlpha=.4;x.fillRect(W*.12+H*.66,H*.48,W*.26,6);x.globalAlpha=.25;x.fillRect(W*.12+H*.66,H*.64,W*.42,4);x.globalAlpha=.9;x.fillRect(W*.12+H*.66,H*.64,W*.42*((t*.05)%1),4)}break;
+case 6:for(let k=8;k>0;k--){const s=k/8,z=(s+t*.15)%1;x.globalAlpha=1-z;x.lineWidth=2;x.strokeRect(W/2-W*z*.5,H/2-H*z*.5,W*z,H*z)}break;
+case 7:{const R=Math.min(W,H)*.3;for(let k=0;k<64;k++){const an=k/64*Math.PI*2,v=R+beat(t,k)*R*.5;x.globalAlpha=.9;x.lineWidth=3;x.beginPath();x.moveTo(W/2+Math.cos(an)*R*.8,H/2+Math.sin(an)*R*.8);x.lineTo(W/2+Math.cos(an)*v,H/2+Math.sin(an)*v);x.stroke()}}break;
+case 8:{x.font=`${H*.09}px JetBrains Mono,monospace`;for(let k=0;k<7;k++){x.globalAlpha=.3+.7*((k+Math.floor(t*2))%7===3);x.fillText(['const beat = ','await play(','lyrics.sync(','fx.rim(','for (bar of','  glow(bar)','}'][k]+(k<4?'…':''),W*.08,H*.18+k*H*.11)}}break;
+case 9:{function br(px,py,an,l,d){if(d>6)return;const ex=px+Math.cos(an)*l,ey=py+Math.sin(an)*l;x.globalAlpha=.9-d*.1;x.lineWidth=7-d;x.beginPath();x.moveTo(px,py);x.lineTo(ex,ey);x.stroke();const s=.4+.25*Math.sin(t*2+d);br(ex,ey,an-s,l*.72,d+1);br(ex,ey,an+s,l*.72,d+1)}br(W/2,H,-Math.PI/2,H*.28,0)}break;
+case 10:{const R=Math.min(W,H)*.42;for(let k=1;k<=4;k++){x.globalAlpha=.5;x.lineWidth=1.5;x.beginPath();for(let j=0;j<=12;j++){const an=j/12*Math.PI*2+t*.2,v=R*k/4*(.85+.15*beat(t,j+k));j?x.lineTo(W/2+Math.cos(an)*v,H/2+Math.sin(an)*v):x.moveTo(W/2+Math.cos(an)*v,H/2+Math.sin(an)*v)}x.stroke()}}break;
+case 11:{x.globalAlpha=1;x.textAlign='center';x.font=`800 ${H*.34}px Inter`;const d=new Date();x.fillText(d.getHours()%12+':'+String(d.getMinutes()).padStart(2,'0'),W/2,H*.56);x.font=`500 ${H*.08}px Inter`;x.globalAlpha=.7;x.fillText('Midnight Drive · Neon Coast',W/2,H*.74);x.textAlign='start'}break}
+x.globalAlpha=1}
+(function loop(t){if(!document.hidden)cv.forEach(o=>o.vis&&draw(o,t/1000));if(!calm)requestAnimationFrame(loop)})(0);
+
+const packs=[['Fluent','#ffffff','#111'],['Fluent Dark','#1b1b1f','#fff'],['Arcane','#7c5cff','#e9e3ff'],['Ronin','#e11d48','#111'],['Inferno','#ff6a00','#ffd166'],['Frost','#7dd3fc','#ffffff'],['Neon','#22d3ee','#ff4fa3'],['Void','#09090b','#7c5cff'],['Royal','#facc15','#3b0764'],['Volt','#a3e635','#111'],['Dragon','#16a34a','#fde047'],['Sakura','#f9a8d4','#ffffff'],['Comet','#6366f1','#22d3ee'],['Pixel','#ffffff','#000']];
+$('#curs').innerHTML=packs.map(([n,f,s],i)=>`<div class="cu rv"><svg viewBox="0 0 24 32"><defs><linearGradient id="cg${i}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${f}"/><stop offset="1" stop-color="${s}" stop-opacity=".55"/></linearGradient></defs><path d="M2 2 L2 26 L8.5 20 L13 30 L17 28.2 L12.6 18.6 L21 18.6 Z" fill="url(#cg${i})" stroke="${s}" stroke-width="1.6" stroke-linejoin="round"${n==='Pixel'?' shape-rendering="crispEdges"':''}/></svg><b>${n}</b></div>`).join('');
+
+const day=[0,0,0,0,0,0,0,4,18,42,55,48,30,52,58,44,40,36,28,46,54,38,20,6];
+$('#hrs').innerHTML=day.map(()=>'<i></i>').join('');$('#hl').innerHTML=day.map((_,i)=>`<span>${i%3?'':(i%12||12)+(i<12?'a':'p')}</span>`).join('');
+new IntersectionObserver((es,o)=>{if(es[0].isIntersecting){$$('#hrs i').forEach((b,i)=>setTimeout(()=>b.style.height=day[i]/60*100+'%',i*40));o.disconnect()}}).observe($('#hrs'));
+
+const chips=['Synced lyrics','Hinglish lyrics','Spotify','Gemini Ask','160 languages','Claude Code','Codex','Cursor','Gemini CLI','OpenCode','Amp','Offline OCR','Clipboard history','Gaming HUD','Real FPS','Focus timer','To-do','Water reminder','Speed test','Gmail','Outlook','Google Meet','Zoom','Teams','Weather','Calendar','Screenshots','Notes','Quick maths','Currency rates','Volume','Brightness','USB alerts','Battery','Auto updates','No telemetry'];
+$('#mq').innerHTML=[...chips,...chips].map(c=>`<span>${c}</span>`).join('');watch();
+
+$$('[data-c]').forEach(b=>b.onclick=()=>{navigator.clipboard.writeText($('#'+b.dataset.c).textContent).then(()=>toast('Copied'))});
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(t._);t._=setTimeout(()=>t.classList.remove('on'),1600)}
+
+function md(s){return s.replace(/\r/g,'').split('\n').filter(l=>/^\s*[-*] /.test(l)).slice(0,8).map(l=>'<li>'+l.replace(/^\s*[-*] /,'').replace(/[<>&]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;'}[c])).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/`(.+?)`/g,'<code>$1</code>')+'</li>').join('')}
+function mb(n){return (n/1048576).toFixed(1)+' MB'}
+function setDl(n){[$('#dlt')].forEach(e=>{e.dataset.n=n;count(e,n)});$('#dlh').textContent=n.toLocaleString();$('#dc').textContent=n.toLocaleString()+' total';$('#dlf').textContent=n.toLocaleString()+' people'}
+fetch(`https://api.github.com/repos/${repo}/releases?per_page=30`).then(r=>r.ok?r.json():Promise.reject()).then(rs=>{
+  let n=0;rs.forEach(r=>r.assets.forEach(a=>{if(/\.(exe|zip|msix)$/i.test(a.name))n+=a.download_count}));setDl(n);
+  $('#rel').innerHTML=rs.slice(0,4).map((r,i)=>{const d=r.assets.reduce((s,a)=>s+(/\.(exe|zip|msix)$/i.test(a.name)?a.download_count:0),0);return `<div class="rl rv in"><div class="h"><b>${(r.name||r.tag_name).replace(/^Island/,'DeskHalo')}</b>${i?'':'<em>Latest</em>'}<span>${new Date(r.published_at).toLocaleDateString(undefined,{day:'numeric',month:'short',year:'numeric'})} · ${d.toLocaleString()} downloads</span></div><ul>${md(r.body||'')}</ul></div>`}).join('')||'<div class="rl"><div class="h"><b>No releases yet</b></div></div>';
+}).catch(()=>{$('#rel').innerHTML='<div class="rl"><div class="h"><b>See every release on GitHub</b></div><ul><li><a style="color:var(--b)" href="https://github.com/'+repo+'/releases">github.com/'+repo+'/releases</a></li></ul></div>';$('#dlh').textContent='Many';$('#dlt').textContent='—'});
+fetch(`https://raw.githubusercontent.com/${repo}/main/version.json`,{cache:'no-store'}).then(r=>r.json()).then(v=>{
+  $('#dv').textContent=v.version;$('#tagv').textContent='v'+v.version;$('#tagt').textContent='Now called DeskHalo · see what\'s new';$('#dd').textContent=new Date(v.released).toLocaleDateString(undefined,{day:'numeric',month:'long',year:'numeric'});$('#ds').textContent=mb(v.size);$('#dh').textContent=v.sha256;$('#dlb').href=v.download_url;
+}).catch(()=>{});
 </script>
 </body>
 </html>

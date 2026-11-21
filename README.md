@@ -1,10 +1,10 @@
 <div align="center">
 
-<img src="assets/icon.png" width="128" alt="Island icon">
+<img src="assets/icon.png" width="128" alt="DeskHalo icon">
 
-# Island
+# DeskHalo
 
-**A Dynamic Island for Windows.**
+**The Dynamic Island for Windows.**
 Music, AI answers, notifications, timers, clipboard and live stats, right at the top of your screen.
 
 [![Latest release](https://img.shields.io/github/v/release/consoleisrealistic/dynamic-island-for-windows?label=release&color=6c63ff)](https://github.com/consoleisrealistic/dynamic-island-for-windows/releases/latest)
@@ -13,7 +13,7 @@ Music, AI answers, notifications, timers, clipboard and live stats, right at the
 
 [**Download**](https://github.com/consoleisrealistic/dynamic-island-for-windows/releases/latest/download/IslandSetup.exe) &nbsp;·&nbsp; [**Watch the demo**](https://github.com/consoleisrealistic/dynamic-island-for-windows/releases/latest/download/Island-demo.mp4) &nbsp;·&nbsp; [**Website**](https://consoleisrealistic.github.io/dynamic-island-for-windows/) &nbsp;·&nbsp; [**Release notes**](https://github.com/consoleisrealistic/dynamic-island-for-windows/releases)
 
-<a href="https://github.com/consoleisrealistic/dynamic-island-for-windows/releases/latest/download/Island-demo.mp4"><img src="assets/demo.gif" width="760" alt="Island demo: hovering over the island opens the now playing view"></a>
+<a href="https://github.com/consoleisrealistic/dynamic-island-for-windows/releases/latest/download/Island-demo.mp4"><img src="assets/demo.gif" width="760" alt="DeskHalo demo: hovering over the island opens the now playing view"></a>
 
 <sub>Click the preview to watch the full two-minute demo.</sub>
 
@@ -39,7 +39,7 @@ Music, AI answers, notifications, timers, clipboard and live stats, right at the
 | | |
 | --- | --- |
 | **Now playing** | Album art, a live visualiser, playback controls and time-synced lyrics for Spotify and any app that uses Windows media controls. Optional Hinglish lyrics for Punjabi, Hindi and Haryanvi songs. |
-| **Ask** | Ask Gemini anything from the island, with optional web results. Bring your own free key from Google AI Studio; Island picks a working model and falls back to another one when a limit is reached. |
+| **Ask** | Ask Gemini anything from the island, with optional web results. Bring your own free key from Google AI Studio; DeskHalo picks a working model and falls back to another one when a limit is reached. |
 | **Translate** | Translate between 160 languages, with auto-detect. |
 | **Copy text from the screen** | Press **Ctrl + Alt + T**, drag over anything and the text is copied. Uses offline Windows OCR, or Gemini if you turn on smart OCR. |
 | **Quick maths and currency** | Type sums, percentages or "500 usd to inr" and get the answer instantly. Understands k, lakh and crore. |
@@ -112,10 +112,10 @@ The script checks your Windows version, downloads the latest official installer 
    ```powershell
    Get-FileHash .\IslandSetup.exe -Algorithm SHA256
    ```
-3. Run it. Island installs for your user account (no admin rights needed) and can start with Windows.
+3. Run it. DeskHalo installs for your user account (no admin rights needed) and can start with Windows.
 
 > [!NOTE]
-> Island releases are not code-signed yet, so Windows SmartScreen may show **"Windows protected your PC"**. Choose **More info**, then **Run anyway**. The checksum is how you confirm the file is genuine.
+> DeskHalo releases are not code-signed yet, so Windows SmartScreen may show **"Windows protected your PC"**. Choose **More info**, then **Run anyway**. The checksum is how you confirm the file is genuine.
 
 ### Option 3: portable
 
@@ -123,22 +123,22 @@ Download **Island-portable.zip** from the [latest release](https://github.com/co
 
 ### Microsoft Store and WinGet
 
-Island is not on the Microsoft Store or in WinGet yet. This section will list the Store link and the `winget install` command once they are published.
+DeskHalo is not on the Microsoft Store or in WinGet yet. This section will list the Store link and the `winget install` command once they are published.
 
 ## Update
 
-Island checks for updates at start-up and every 8 hours (you can turn this off). To check by hand, open the island, go to **Settings › Updates** and press **Check for updates**.
+DeskHalo checks for updates at start-up and every 8 hours (you can turn this off). To check by hand, open the island, go to **Settings › Updates** and press **Check for updates**.
 
 | Installed with | How updates arrive |
 | --- | --- |
-| Island installer or the PowerShell command | **Download and install** in Settings › Updates. Island downloads the official installer, verifies it, updates itself and restarts. Your settings are kept. |
+| DeskHalo installer or the PowerShell command | **Download and install** in Settings › Updates. DeskHalo downloads the official installer, verifies it, updates itself and restarts. Your settings are kept. |
 | Portable zip | Settings › Updates opens the new release; download and replace the folder. |
 | WinGet (when available) | `winget upgrade --id consoleisrealistic.Island -e` |
-| Microsoft Store (when available) | The Store updates Island automatically. |
+| Microsoft Store (when available) | The Store updates DeskHalo automatically. |
 
 ## Uninstall
 
-Open **Settings › Apps › Installed apps**, find **Island**, choose **Uninstall**.
+Open **Settings › Apps › Installed apps**, find **DeskHalo**, choose **Uninstall**.
 
 The uninstaller removes the program, its shortcuts and its start-up entry. It then asks whether to delete your settings and data as well (notes, clipboard history, reminders). Choose **No** to keep them for a future install. Your data lives in `%APPDATA%\island`.
 
@@ -147,7 +147,7 @@ The uninstaller removes the program, its shortcuts and its start-up entry. It th
 <details>
 <summary><b>The island doesn't appear</b></summary>
 
-- Look for the Island icon next to the clock. Right-click it and choose **Hide or show**.
+- Look for the DeskHalo icon next to the clock. Right-click it and choose **Hide or show**.
 - Press **Ctrl + Alt + H** (or **Ctrl + Shift + H** if another app owns the first shortcut) to show or hide it.
 - If another "dynamic island" app is running, quit it. Two islands fight over the same spot.
 - Settings › General › **Hide in fullscreen** hides it while a full-screen app is focused.
@@ -156,7 +156,7 @@ The uninstaller removes the program, its shortcuts and its start-up entry. It th
 <details>
 <summary><b>Music or lyrics don't show</b></summary>
 
-- Island reads Windows media controls. The player must show up in the Windows volume flyout's media panel.
+- DeskHalo reads Windows media controls. The player must show up in the Windows volume flyout's media panel.
 - Lyrics come from the free lrclib.net database. Songs without time-synced lyrics there show none.
 </details>
 
@@ -181,7 +181,7 @@ Logs are in `%APPDATA%\island\island.log` and `crash.log`. Please [open an issue
 
 ## Privacy
 
-Island runs on your PC and sends **no analytics or telemetry**. It only goes online for features you use:
+DeskHalo runs on your PC and sends **no analytics or telemetry**. It only goes online for features you use:
 
 | Feature | Service | What is sent |
 | --- | --- | --- |
@@ -198,7 +198,7 @@ Full details: [PRIVACY.md](PRIVACY.md).
 
 ## License
 
-Island is **freeware**: free to use on any number of your own PCs, for personal or commercial work. It is closed source; redistribution and reverse engineering are not permitted. See [LICENSE](LICENSE).
+DeskHalo is **freeware**: free to use on any number of your own PCs, for personal or commercial work. It is closed source; redistribution and reverse engineering are not permitted. See [LICENSE](LICENSE).
 
 This repository holds the public website, documentation, installer script and release downloads. The application's source code is private.
 
